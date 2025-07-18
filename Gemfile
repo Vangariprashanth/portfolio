@@ -1,0 +1,10 @@
+source "https://rubygems.org"
+
+gem "jekyll", "~> 3.9.3"
+gem "jekyll-theme-minimal"
+gem "csv"
+gem "logger"
+gem "base64"
+gem "bigdecimal"
+gem "webrick"
+gem "wdm", ">= 0.1.0"
