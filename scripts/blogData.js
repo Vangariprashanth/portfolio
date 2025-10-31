@@ -7,8 +7,6 @@ const blogData = {
             id: 1,
             title: "Python Basics",
             description: "Master the fundamentals of Python programming",
-            color: "#4A90E2",
-            icon: "🐍",
             links: [
                 { title: "Introduction", url: "blogs/python-basics/Introduction.md" },
                 { title: "Python Syntax & Variables", url: "blogs/python-basics/python_basics.md" },
@@ -22,8 +20,6 @@ const blogData = {
             id: 2,
             title: "PyTorch Basics",
             description: "Get started with PyTorch for deep learning",
-            color: "#FF6B6B",
-            icon: "🔥",
             links: [
                 { title: "Numpy & Pandas for Data Handling", url: "blogs/numpy_pandas.md" },
                 { title: "OpenCV Basics", url: "blogs/opencv_basics.md" },
@@ -34,8 +30,6 @@ const blogData = {
             id: 3,
             title: "Neural Networks",
             description: "Understanding neural network architectures",
-            color: "#4ECDC4",
-            icon: "🧠",
             links: [
                 { title: "Deep Learning Fundamentals", url: "blogs/dl_fundamentals.md" },
                 { title: "Convolutional Neural Networks", url: "blogs/cnn_basics.md" },
@@ -46,8 +40,6 @@ const blogData = {
             id: 4,
             title: "2D Computer Vision",
             description: "Image processing and 2D vision techniques",
-            color: "#95E1D3",
-            icon: "📷",
             links: [
                 { title: "3D Point Clouds", url: "blogs/pointclouds.md" },
                 { title: "Human Pose Estimation in 3D", url: "blogs/pose_estimation.md" },
@@ -58,8 +50,6 @@ const blogData = {
             id: 5,
             title: "3D Point Cloud",
             description: "Working with 3D data and point clouds",
-            color: "#F38181",
-            icon: "☁️",
             links: [
                 { title: "3D Point Clouds", url: "content/pointclouds.md" },
                 { title: "Farthest Point Sampling (FPS)", url: "content/pose_estimation.md" },
@@ -75,9 +65,8 @@ function renderRoadmap() {
     if (!roadmapContainer) return;
 
     roadmapContainer.innerHTML = blogData.roadmap.map(section => `
-        <div class="roadmap-card" style="--card-color: ${section.color}">
+        <div class="roadmap-card">
             <div class="roadmap-header">
-                <span class="roadmap-icon">${section.icon}</span>
                 <div class="roadmap-title-wrapper">
                     <h3 class="roadmap-title">${section.id}. ${section.title}</h3>
                     <p class="roadmap-description">${section.description}</p>
