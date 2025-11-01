@@ -56,6 +56,16 @@ footer {
     color: #fff;
 }
 
+footer a {
+    color: #fff;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #ccc;
+}
+
 html,
 body {
     height: 100%;
@@ -160,7 +170,8 @@ main {
 }
 
 .intro-visualization img {
-    max-width: 100%;
+    max-width: 300px;
+    width: 100%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -199,6 +210,81 @@ main {
 }
 
 .learn-more:hover {
+    color: #555;
+}
+
+/* Projects Page Styles */
+.projects-main {
+    max-width: 900px !important;
+    padding: 40px 20px;
+}
+
+.projects-intro {
+    text-align: left;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.projects-intro h1 {
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+    color: #333;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
+
+.projects-intro p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.project-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.project-card h3 {
+    font-size: 1.3rem;
+    margin: 0 0 15px 0;
+    color: #333;
+    font-weight: 500;
+}
+
+.project-card p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+    flex: 1;
+}
+
+.project-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    align-self: flex-start;
+}
+
+.project-link:hover {
     color: #555;
 }
 
@@ -338,6 +424,19 @@ main {
     .contact-main {
         padding: 30px 15px;
     }
+
+    .projects-main {
+        padding: 30px 15px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .intro-visualization img {
+        max-width: 100%;
+    }
 }
 
 /* Blog Page Specific Styles */
@@ -372,45 +471,38 @@ main {
 .roadmap-container {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 25px;
     margin-top: 30px;
 }
 
 /* Roadmap Cards */
 .roadmap-card {
     background: #fff;
-    padding: 0;
-    border-bottom: 1px solid #e8e8e8;
-    padding-bottom: 30px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
-.roadmap-card:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.roadmap-header {
-    margin-bottom: 20px;
-}
-
-.roadmap-title-wrapper {
-    flex: 1;
+.roadmap-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .roadmap-title {
     font-size: 1.3rem;
-    margin: 0 0 5px 0;
+    margin: 0 0 15px 0;
     color: #333;
     font-weight: 500;
     letter-spacing: -0.3px;
 }
 
 .roadmap-description {
-    font-size: 0.9rem;
-    color: #777;
-    margin: 0;
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0 0 20px 0;
     line-height: 1.5;
-    font-weight: 300;
 }
 
 /* Roadmap Links */
@@ -420,7 +512,7 @@ main {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
 
 .roadmap-link-item {
@@ -430,12 +522,12 @@ main {
 .roadmap-link {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px 0;
+    justify-content: space-between;
+    padding: 10px 0;
     text-decoration: none;
     color: #555;
-    transition: color 0.2s ease;
-    border-bottom: 1px solid transparent;
+    transition: color 0.3s ease;
+    border-bottom: 1px solid #eee;
 }
 
 .roadmap-link:hover {
@@ -443,16 +535,146 @@ main {
     border-bottom-color: #ddd;
 }
 
-.link-icon {
-    font-size: 0.9rem;
-    color: #999;
-    opacity: 0.6;
+.roadmap-link:hover .link-icon {
+    transform: translateX(3px);
 }
 
 .link-text {
-    flex: 1;
     font-weight: 400;
     font-size: 0.95rem;
+}
+
+.link-icon {
+    font-size: 0.9rem;
+    color: #999;
+    transition: transform 0.3s ease;
+}
+
+/* About Page Styles */
+.about-main {
+    max-width: 900px !important;
+    padding: 40px 20px;
+}
+
+.about-intro {
+    text-align: left;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.about-intro h1 {
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+    color: #333;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
+
+.about-intro p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.about-section {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    margin: 0 0 25px 0;
+    color: #333;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+}
+
+.about-card {
+    background: #fff;
+    padding: 30px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-card h2 {
+    font-size: 1.5rem;
+    margin: 0 0 15px 0;
+    color: #333;
+    font-weight: 500;
+}
+
+.about-card h3 {
+    font-size: 1.3rem;
+    margin: 0 0 10px 0;
+    color: #333;
+    font-weight: 500;
+}
+
+.about-card p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 15px 0;
+}
+
+.about-card p:last-child {
+    margin-bottom: 0;
+}
+
+.about-card .institution {
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+.about-card .duration {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.about-card ul {
+    margin: 15px 0 0 20px;
+    padding: 0;
+    color: #666;
+}
+
+.about-card ul li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.skills-list {
+    list-style: none;
+    margin: 15px 0 0 0;
+    padding: 0;
+}
+
+.skills-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.skills-list li:last-child {
+    border-bottom: none;
+}
+
+.skills-list li:hover {
+    color: #333;
 }
 
 /* Responsive Design */
@@ -462,14 +684,31 @@ main {
     }
 
     .roadmap-container {
-        gap: 35px;
+        gap: 20px;
     }
 
     .roadmap-card {
-        padding-bottom: 25px;
+        padding: 25px;
     }
 
     .blog-main {
         padding: 30px 15px;
+    }
+
+    .about-main {
+        padding: 30px 15px;
+    }
+
+    .about-card {
+        padding: 25px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
     }
 }

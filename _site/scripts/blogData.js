@@ -66,18 +66,14 @@ function renderRoadmap() {
 
     roadmapContainer.innerHTML = blogData.roadmap.map(section => `
         <div class="roadmap-card">
-            <div class="roadmap-header">
-                <div class="roadmap-title-wrapper">
-                    <h3 class="roadmap-title">${section.id}. ${section.title}</h3>
-                    <p class="roadmap-description">${section.description}</p>
-                </div>
-            </div>
+            <h3 class="roadmap-title">${section.id}. ${section.title}</h3>
+            <p class="roadmap-description">${section.description}</p>
             <ul class="roadmap-links">
                 ${section.links.map(link => `
                     <li class="roadmap-link-item">
                         <a href="${link.url}" target="_blank" class="roadmap-link">
-                            <span class="link-icon">→</span>
                             <span class="link-text">${link.title}</span>
+                            <span class="link-icon">→</span>
                         </a>
                     </li>
                 `).join('')}

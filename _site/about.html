@@ -1,19 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Prashanth Vangari</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
+
 <body>
 
     <!-- Header placeholder -->
     <div id="header"></div>
 
-    <main>
-        <h1>About Me</h1>
-        <p>Here you can write a more detailed description of your background, skills, and interests. Talk about your journey, what you're passionate about, and what you're looking for in your career.</p>
+    <main class="about-main">
+        <div class="about-intro">
+            <h1>About Me</h1>
+            <p>Learn about my research path, philosophy, and current work in AI and 3D vision.</p>
+        </div>
+
+        <!-- About Description -->
+        <section class="about-section">
+            <div class="about-card">
+                <h2>Background</h2>
+                <p>I am a computer vision researcher passionate about developing systems that perceive, reason, and
+                    learn from 3D data. My current research focuses on human pose estimation in 3D point clouds using
+                    Transformer-based architectures, with broader interests in multimodal learning and embodied
+                    intelligence.</p>
+                <p>Through my work, I aim to bridge the gap between theoretical advances in deep learning and practical
+                    applications in robotics, healthcare, and human-computer interaction.</p>
+            </div>
+        </section>
+
+        <!-- Work Experience Section -->
+        <section class="about-section">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="about-card">
+                <h3>Job Title</h3>
+                <p class="institution">Company Name</p>
+                <p class="duration">Date - Date</p>
+                <p>Description of your role, responsibilities, and key achievements. Highlight relevant projects and
+                    technologies used.</p>
+                <ul>
+                    <li>Key accomplishment or responsibility</li>
+                    <li>Another important achievement</li>
+                    <li>Technical skill or project highlight</li>
+                </ul>
+            </div>
+            <div class="about-card">
+                <h3>Job Title</h3>
+                <p class="institution">Company Name</p>
+                <p class="duration">Date - Date</p>
+                <p>Description of your role, responsibilities, and key achievements. Highlight relevant projects and
+                    technologies used.</p>
+                <ul>
+                    <li>Key accomplishment or responsibility</li>
+                    <li>Another important achievement</li>
+                    <li>Technical skill or project highlight</li>
+                </ul>
+            </div>
+        </section>
+
+
+        <!-- Education Section -->
+        <section class="about-section">
+            <h2 class="section-title">Education</h2>
+            <div class="about-card">
+                <h3>Master of Science in Computer Science</h3>
+                <p class="institution">University of North Texas</p>
+                <p class="duration">January 2023 - December 2024</p>
+                <p>GPA: 4.0/4.0</p>
+            </div>
+            <div class="about-card">
+                <h3>Bachelor of Technology in Electronics and Communication Engineering</h3>
+                <p class="institution">Geethanjali College of Engineering and Technology</p>
+                <p class="duration">August 2015 - May 2019</p>
+                <p>Brief description of your studies, achievements, relevant coursework, or research.</p>
+            </div>
+        </section>
+
+
+
+        <!-- Skills Section -->
+        <section class="about-section">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="about-card">
+                    <h3>Programming Languages</h3>
+                    <ul class="skills-list">
+                        <li>Python</li>
+                        <li>C++</li>
+                        <li>JavaScript</li>
+                        <li>Other languages...</li>
+                    </ul>
+                </div>
+                <div class="about-card">
+                    <h3>Frameworks & Libraries</h3>
+                    <ul class="skills-list">
+                        <li>PyTorch</li>
+                        <li>TensorFlow</li>
+                        <li>OpenCV</li>
+                        <li>Other frameworks...</li>
+                    </ul>
+                </div>
+                <div class="about-card">
+                    <h3>Tools & Technologies</h3>
+                    <ul class="skills-list">
+                        <li>Git</li>
+                        <li>Linux</li>
+                        <li>Docker</li>
+                        <li>Other tools...</li>
+                    </ul>
+                </div>
+                <div class="about-card">
+                    <h3>Research Areas</h3>
+                    <ul class="skills-list">
+                        <li>Computer Vision</li>
+                        <li>3D Pose Estimation</li>
+                        <li>Transformers</li>
+                        <li>Multimodal Learning</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer placeholder -->
@@ -23,4 +132,5 @@
     <script src="scripts/loadComponents.js"></script>
 
 </body>
+
 </html>
