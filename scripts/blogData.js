@@ -8,12 +8,12 @@ const blogData = {
             title: "Python Basics",
             description: "Master the fundamentals of Python programming",
             links: [
-                { title: "Introduction", url: "blogs/python-basics/Introduction.md" },
-                { title: "Python Syntax & Variables", url: "blogs/python-basics/python_basics.md" },
-                { title: "Lists, Tuples, Dictionaries", url: "blogs/python_data_structures.md" },
-                { title: "Functions & Loops", url: "blogs/python_functions.md" },
-                { title: "OOPS", url: "blogs/python_functions.md" },
-                { title: "Modules, import and libraries", url: "blogs/python_functions.md" }
+                { title: "Introduction", url: "tutorials/1-python-basics/1-introduction.html" },
+                { title: "Python Syntax & Variables", url: "tutorials/1-python-basics/2-syntax.html" },
+                { title: "Lists, Tuples, Dictionaries", url: "tutorials/1-python-basics/3-list-tuples.html" },
+                { title: "Functions & Loops", url: "tutorials/1-python-basics/4-functions-and-loops.html" },
+                { title: "Object Oriented Programming", url: "tutorials/1-python-basics/python-basics.html" },
+                { title: "Modules, import and libraries", url: "tutorials/1-python-basics/5-modules-libraries.html" }
             ]
         },
         {
@@ -31,6 +31,7 @@ const blogData = {
             title: "Neural Networks",
             description: "Understanding neural network architectures",
             links: [
+                { title: "Building Your First Neural Network", url: "tutorials/sample-tutorial.html" },
                 { title: "Deep Learning Fundamentals", url: "blogs/dl_fundamentals.md" },
                 { title: "Convolutional Neural Networks", url: "blogs/cnn_basics.md" },
                 { title: "Recurrent Neural Networks", url: "blogs/rnn_basics.md" }

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modules and Packages in Python - Prashanth Vangari</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+</head>
+
+<body>
+
+    <!-- Header placeholder -->
+    <div id="header"></div>
+
+    <main class="tutorial-main">
+        <article class="tutorial-content">
+
+            <!-- Tutorial Header -->
+            <div class="tutorial-header">
+                <h1>Python Modules and Packages</h1>
+                <p class="tutorial-meta">
+                    <span class="meta-item">Published: November 2025</span>
+                    <span class="meta-item">Category: Python</span>
+                </p>
+            </div>
+
+            <!-- Introduction -->
+            <section class="tutorial-section">
+                <h2>Introduction</h2>
+                <p>
+                    When your code grows beyond a single file, Python provides two tools to organize it effectively:
+                    <strong>modules</strong> and <strong>packages</strong>.
+                    A module is a single Python file, while a package is a directory containing multiple modules.
+                </p>
+                <p>
+                    In this tutorial, we’ll break down how these work, what <code>__init__.py</code> and
+                    <code>__pycache__</code> do, and how imports really function in Python.
+                </p>
+            </section>
+
+            <!-- What is a Module -->
+            <section class="tutorial-section">
+                <h2>What is a Module?</h2>
+                <p>
+                    A module is just a Python file that contains related functions, classes, or variables.
+                    You can import a module from another file and reuse its code.
+                </p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">text</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>MyLibrary/
+│
+├── main.py
+├── calc.py
+└── greet.py
+</code></pre>
+                </div>
+
+                <p><strong>calc.py</strong></p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">python</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>def add(a, b):
+    return a + b</code></pre>
+                </div>
+
+                <p><strong>greet.py</strong></p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">python</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>def say_hello():
+    return "Hello!"</code></pre>
+                </div>
+
+                <p><strong>main.py</strong></p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">python</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>from calc import add
+from greet import say_hello
+
+print(say_hello())
+print(add(5, 6))</code></pre>
+                </div>
+
+                <p>
+                    Running <code>python main.py</code> imports <code>calc.py</code> and <code>greet.py</code> as modules and executes their code.
+                </p>
+            </section>
+
+            <!-- What is a Package -->
+            <section class="tutorial-section">
+                <h2>What is a Package?</h2>
+                <p>
+                    A package is a directory that groups together related modules. It usually contains a special file
+                    named <code>__init__.py</code> which marks the folder as a package.
+                </p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">text</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>MyLibrary/
+│
+├── main.py
+└── utils/
+    ├── __init__.py
+    ├── calc.py
+    └── greet.py
+</code></pre>
+                </div>
+
+                <p><strong>__init__.py</strong></p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">python</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>print("Code imported successfully")</code></pre>
+                </div>
+
+                <p><strong>main.py</strong></p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">python</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>from utils.calc import add
+from utils.greet import say_hello
+
+print(say_hello())
+print(add(5, 6))</code></pre>
+                </div>
+
+                <p>
+                    When you run this, Python first executes <code>__init__.py</code>. This confirms that
+                    <code>utils</code> is a package and allows its modules to be imported.
+                </p>
+            </section>
+
+            <!-- Why Use __init__.py -->
+            <section class="tutorial-section">
+                <h2>Why Use <code>__init__.py</code>?</h2>
+                <p>It serves two main purposes:</p>
+                <ul class="tutorial-list">
+                    <li><strong>Package Initialization:</strong> Runs setup code when the package is imported.</li>
+                    <li><strong>Cleaner Imports:</strong> Lets you simplify imports by exposing specific functions.</li>
+                </ul>
+
+                <p><strong>Example:</strong></p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">python</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code># utils/__init__.py
+from utils.calc import add
+from utils.greet import say_hello
+</code></pre>
+                </div>
+
+                <p><strong>main.py</strong></p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">python</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>from utils import add, say_hello
+
+print(add(5, 6))
+print(say_hello())</code></pre>
+                </div>
+            </section>
+
+            <!-- Pycache -->
+            <section class="tutorial-section">
+                <h2>What is <code>__pycache__</code>?</h2>
+                <p>
+                    When Python imports a module, it compiles the source file (<code>.py</code>) into bytecode
+                    (<code>.pyc</code>) to make imports faster next time.
+                    These compiled files are stored automatically in the <code>__pycache__</code> directory.
+                </p>
+                <p>You can safely ignore or delete it — Python will recreate it as needed.</p>
+            </section>
+
+            <!-- Absolute vs Relative Imports -->
+            <section class="tutorial-section">
+                <h2>Absolute vs Relative Imports</h2>
+                <p><strong>Absolute imports:</strong> use the full path from the project root.</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">python</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>from utils.calc import add</code></pre>
+                </div>
+
+                <p><strong>Relative imports:</strong> use dots to refer to the current or parent package.</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">python</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>from .calc import add
+from ..helpers import util_function</code></pre>
+                </div>
+            </section>
+
+            <!-- Nested Packages -->
+            <section class="tutorial-section">
+                <h2>Nested Packages</h2>
+                <p>
+                    You can organize complex projects using nested packages.
+                </p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">text</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>MyLibrary/
+│
+├── main.py
+└── utils/
+    ├── __init__.py
+    ├── m_util/
+    │   ├── __init__.py
+    │   └── math_util.py
+    └── s_util/
+        ├── __init__.py
+        └── string_util.py
+</code></pre>
+                </div>
+
+                <p><strong>main.py</strong></p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">python</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>from utils.m_util.math_util import add_numbers
+from utils.s_util.string_util import reverse_string</code></pre>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="tutorial-section">
+                <h2>Summary</h2>
+                <ul class="tutorial-list">
+                    <li><strong>Module:</strong> a single <code>.py</code> file.</li>
+                    <li><strong>Package:</strong> a directory containing modules and <code>__init__.py</code>.</li>
+                    <li><strong><code>__init__.py</code>:</strong> initializes and organizes your package.</li>
+                    <li><strong><code>__pycache__</code>:</strong> stores compiled bytecode for faster imports.</li>
+                    <li><strong>Absolute imports:</strong> use full paths.</li>
+                    <li><strong>Relative imports:</strong> are useful within large packages.</li>
+                </ul>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="tutorial-section">
+                <h2>Conclusion</h2>
+                <p>
+                    You’ve now seen how Python organizes and loads code across modules and packages. This knowledge is
+                    fundamental to building scalable, modular projects — from simple scripts to full-fledged libraries.
+                </p>
+                <p>
+                    Next, try building your own utility package and experiment with
+                    <code>__init__.py</code> to simplify your imports.
+                </p>
+            </section>
+
+            <!-- Navigation placeholder -->
+            <div id="tutorial-navigation"></div>
+
+        </article>
+    </main>
+
+    <!-- Footer placeholder -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../../scripts/loadComponents.js"></script>
+    <script src="../../scripts/blogData.js"></script>
+    <script src="../../scripts/copyCode.js"></script>
+    <script src="../../scripts/tutorialNavigation.js"></script>
+
+</body>
+
+</html>
