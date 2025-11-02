@@ -127,42 +127,123 @@
 
     /**
      * Calculate the correct relative path from current page to target URL
+     * Handles GitHub Pages base paths correctly
      */
     function getRelativePath(targetUrl) {
         if (!targetUrl) return '#';
 
-        const currentPath = window.location.pathname;
-        const currentDir = currentPath.substring(0, currentPath.lastIndexOf('/'));
-
         // If target is absolute or starts with http, return as is
-        if (targetUrl.startsWith('http://') || targetUrl.startsWith('https://') || targetUrl.startsWith('/')) {
+        if (targetUrl.startsWith('http://') || targetUrl.startsWith('https://')) {
             return targetUrl;
         }
 
-        // Calculate relative path from current directory
-        const pathParts = currentPath.split('/').filter(part => part && !part.endsWith('.html'));
+        // Get current path and extract base path (for GitHub Pages)
+        const currentPath = window.location.pathname;
+
+        // If target already starts with /, it's already absolute
+        if (targetUrl.startsWith('/')) {
+            return targetUrl;
+        }
+
+        // Get current directory (without filename)
+        const currentDir = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+
+        // Split paths into components
+        const currentParts = currentPath.split('/').filter(part => part && !part.endsWith('.html'));
         const targetParts = targetUrl.split('/').filter(part => part);
 
-        // Remove common path parts
-        let relativePath = '';
-        let commonLength = 0;
+        // Remove filename from current path parts
+        const currentFile = currentPath.split('/').pop();
+        const currentDirs = currentParts.slice(0, -1); // Remove last part which might be filename
 
-        // Find common directory structure
-        for (let i = 0; i < Math.min(pathParts.length, targetParts.length - 1); i++) {
-            if (pathParts[i] === targetParts[i]) {
+        // Find common path
+        let commonLength = 0;
+        const maxCompare = Math.min(currentDirs.length, targetParts.length - 1);
+
+        for (let i = 0; i < maxCompare; i++) {
+            if (currentDirs[i] === targetParts[i]) {
                 commonLength++;
             } else {
                 break;
             }
         }
 
+        // Calculate how many directories to go up
+        const upLevels = currentDirs.length - commonLength;
+
         // Build relative path
-        // Go up (..) for directories not in common
-        const upLevels = pathParts.length - commonLength;
-        relativePath = '../'.repeat(upLevels);
+        let relativePath = '';
+        if (upLevels > 0) {
+            relativePath = '../'.repeat(upLevels);
+        }
 
         // Add remaining target path
-        relativePath += targetParts.slice(commonLength).join('/');
+        const remainingPath = targetParts.slice(commonLength);
+        if (remainingPath.length > 0) {
+            relativePath += remainingPath.join('/');
+        }
+
+        // Simplified fallback for same directory case
+        // Current: /portfolio/tutorials/1-python-basics/1-introduction.html
+        // Target: tutorials/1-python-basics/2-syntax.html
+        // Should return: 2-syntax.html (same directory)
+
+        if (targetUrl.startsWith('tutorials/') && currentPath.includes('tutorials/')) {
+            // Extract paths after 'tutorials/'
+            const currentTutorialsIndex = currentPath.indexOf('tutorials/');
+            const targetTutorialsIndex = targetUrl.indexOf('tutorials/');
+
+            if (currentTutorialsIndex !== -1 && targetTutorialsIndex !== -1) {
+                const currentAfterTutorials = currentPath.substring(currentTutorialsIndex + 'tutorials/'.length);
+                const targetAfterTutorials = targetUrl.substring('tutorials/'.length);
+
+                // Get directory and file parts
+                const currentParts = currentAfterTutorials.split('/');
+                const targetParts = targetAfterTutorials.split('/');
+
+                const currentDir = currentParts.slice(0, -1).join('/'); // Directory without filename
+                const targetDir = targetParts.slice(0, -1).join('/'); // Directory without filename
+                const targetFile = targetParts[targetParts.length - 1]; // Just filename
+
+                // If same directory, return just filename
+                if (currentDir === targetDir) {
+                    return targetFile;
+                }
+
+                // If different directories but same parent, calculate relative
+                if (currentDir && targetDir) {
+                    const currentDirParts = currentDir.split('/');
+                    const targetDirParts = targetDir.split('/');
+
+                    // Check if they share common parent
+                    let commonLength = 0;
+                    for (let i = 0; i < Math.min(currentDirParts.length, targetDirParts.length); i++) {
+                        if (currentDirParts[i] === targetDirParts[i]) {
+                            commonLength++;
+                        } else {
+                            break;
+                        }
+                    }
+
+                    // Calculate relative path
+                    const upLevels = currentDirParts.length - commonLength;
+                    const downPath = targetDirParts.slice(commonLength).join('/');
+
+                    let fallbackPath = '';
+                    if (upLevels > 0) {
+                        fallbackPath = '../'.repeat(upLevels);
+                    }
+                    if (downPath) {
+                        fallbackPath += downPath + '/';
+                    }
+                    fallbackPath += targetFile;
+
+                    if (fallbackPath && !fallbackPath.includes('undefined')) {
+                        return fallbackPath;
+                    }
+                }
+            }
+        }
 
         return relativePath || targetUrl;
     }
