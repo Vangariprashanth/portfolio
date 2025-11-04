@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>k-Nearest Neighbors (k-NN) Grouping - Prashanth Vangari</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+</head>
+
+<body>
+
+    <!-- Header placeholder -->
+    <div id="header"></div>
+
+    <main class="tutorial-main">
+        <article class="tutorial-content">
+
+            <!-- Tutorial Header -->
+            <div class="tutorial-header">
+                <h1>k-Nearest Neighbors (k-NN) Grouping in Point Clouds</h1>
+                <p class="tutorial-meta">
+                    <span class="meta-item">Published: November 2025</span>
+                    <span class="meta-item">Category: Point Cloud </span>
+                </p>
+            </div>
+
+            <!-- Introduction -->
+            <section class="tutorial-section">
+                <h2>Introduction</h2>
+                <p>
+                    After we perform <strong>Farthest Point Sampling (FPS)</strong> to select a subset of representative
+                    points
+                    from a point cloud, the next crucial step is to gather local neighborhoods around those points.
+                    This is achieved through the <strong>k-Nearest Neighbors (k-NN)</strong> algorithm.
+                </p>
+
+                <p>
+                    In deep learning architectures like <code>PointNet++</code> and <code>DGCNN</code>, this step allows
+                    each
+                    sampled point (called a <em>center</em>) to aggregate local geometric information from its nearest
+                    neighbors.
+                </p>
+            </section>
+
+            <!-- Example Setup -->
+            <section class="tutorial-section">
+                <h2>Example Setup</h2>
+                <p>Let’s use the same 10-point cloud from the FPS example:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">text</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>P1=(1,2), P2=(2,2), P3=(1,1), P4=(5,6), P5=(6,5),
+P6=(5,4), P7=(9,9), P8=(10,9), P9=(8,2), P10=(3,7)
+Sampled points from FPS: P1, P8, P9
+k = 3</code></pre>
+                </div>
+                <p>
+                    We’ll now find the <code>k=3</code> nearest neighbors in the original cloud
+                    for each of these sampled centers.
+                </p>
+            </section>
+
+            <!-- k-NN Grouping -->
+            <section class="tutorial-section">
+                <h2>Grouping (k-Nearest Neighbors - k-NN)</h2>
+                <p>
+                    For each sampled point (center), we find the 3 nearest points in the original cloud based on
+                    Euclidean distance.
+                </p>
+
+                <h3>k-NN Results</h3>
+                <ol class="tutorial-list">
+                    <li>
+                        <strong>Center P1 (1,2):</strong> Its 3 nearest neighbors in <code>𝒫</code> are
+                        <code>{P1, P2, P3}</code>.
+                    </li>
+                    <li>
+                        <strong>Center P8 (10,9):</strong> Its 3 nearest neighbors in <code>𝒫</code> are
+                        <code>{P7, P8, P9}</code>.
+                    </li>
+                    <li>
+                        <strong>Center P9 (8,2):</strong> Its 3 nearest neighbors in <code>𝒫</code> are
+                        <code>{P5, P8, P9}</code>.
+                    </li>
+                </ol>
+
+                <p>
+                    This process creates <strong>local groups</strong> of points for each sampled center.
+                    Each group is then passed through shared MLPs (as in <code>PointNet++</code>) or
+                    graph edge convolutions (as in <code>DGCNN</code>) to extract local features.
+                </p>
+
+                <div class="tutorial-image-template" data-src="../../assets/images/knn.png"
+                    data-caption="<strong>Figure 1:</strong> Visualization of k-NN grouping after FPS"
+                    data-size="large">
+                </div>
+            </section>
+
+            <!-- Navigation (Auto-generated from blogData.js) -->
+            <div id="tutorial-navigation"></div>
+
+        </article>
+    </main>
+
+    <!-- Footer placeholder -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../../scripts/loadComponents.js"></script>
+    <script src="../../scripts/blogData.js"></script>
+    <script src="../../scripts/copyCode.js"></script>
+    <script src="../../scripts/tutorialNavigation.js"></script>
+    <script src="../../scripts/imageTemplate.js"></script>
+
+</body>
+
+</html>

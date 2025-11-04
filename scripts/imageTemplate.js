@@ -1,10 +1,20 @@
 /**
  * Tutorial Image Template Helper
- * Simplifies adding images to tutorial pages
+ * Simplifies adding images to tutorial pages with automatic styling
  * 
  * Usage:
  * Add this HTML where you want an image:
- * <div class="tutorial-image-template" data-src="path/to/image.png" data-caption="Your caption text"></div>
+ * <div class="tutorial-image-template" 
+ *      data-src="path/to/image.png" 
+ *      data-caption="Your caption text"
+ *      data-size="large"></div>
+ * 
+ * Attributes:
+ * - data-src: Path to the image (required)
+ * - data-caption: Caption text with HTML support (optional)
+ * - data-size: Size class - 'full', 'large', 'medium', 'small' (default: 'large')
+ * 
+ * Images automatically use object-fit: contain to show full image without cropping.
  * 
  * Or use the function directly:
  * addTutorialImage('path/to/image.png', 'Your caption text', 'large')
@@ -32,7 +42,7 @@
 
         return `
                 <figure class="tutorial-image ${sizeClass}">
-                    <img src="${imageSrc}" alt="${caption || 'Tutorial diagram'}"${style}>
+                    <img src="${imageSrc}" alt="${caption || 'Tutorial diagram'}" style="object-fit: contain; aspect-ratio: auto; max-width: 100%;"${style}>
                     ${captionHTML}
                 </figure>`;
     }

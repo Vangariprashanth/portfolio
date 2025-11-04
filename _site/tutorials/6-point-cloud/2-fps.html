@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farthest Point Sampling (FPS) - Prashanth Vangari</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+</head>
+
+<body>
+
+    <!-- Header placeholder -->
+    <div id="header"></div>
+
+    <main class="tutorial-main">
+        <article class="tutorial-content">
+
+            <!-- Tutorial Header -->
+            <div class="tutorial-header">
+                <h1>Farthest Point Sampling (FPS) in Point Clouds</h1>
+                <p class="tutorial-meta">
+                    <span class="meta-item">Published: November 2025</span>
+                    <span class="meta-item">Category: Point Cloud </span>
+                </p>
+            </div>
+
+            <!-- Introduction -->
+            <section class="tutorial-section">
+                <h2>Introduction</h2>
+                <p>
+                    In 3D point cloud processing, we often want to downsample points while preserving coverage of the
+                    original shape. <strong>Farthest Point Sampling (FPS)</strong> is a popular algorithm for this.
+                    It selects points iteratively such that each new point is the farthest from the already chosen set.
+                </p>
+            </section>
+
+            <!-- FPS Algorithm -->
+            <section class="tutorial-section">
+                <h2>FPS Algorithm</h2>
+                <p>
+                    Given a point cloud <code>𝒫</code> with <code>N_in</code> points and a target of <code>N_out</code>
+                    sampled points:
+                </p>
+                <ol class="tutorial-list">
+                    <li>Pick a random point from the cloud and add it to the sampled set <code>𝒫_s</code>.</li>
+                    <li>For each point not in <code>𝒫_s</code>, compute its distance to every point in
+                        <code>𝒫_s</code> and take the minimum distance.
+                    </li>
+                    <li>Choose the point with the maximum minimum distance to add to <code>𝒫_s</code>.</li>
+                    <li>Repeat until <code>𝒫_s</code> has <code>N_out</code> points.</li>
+                </ol>
+
+                <p>This ensures the selected points are well spread out across the point cloud.</p>
+            </section>
+
+            <!-- FPS Toy Example -->
+            <section class="tutorial-section">
+                <h2>Example</h2>
+                <p>Let's take a simple 2D point cloud with 10 points:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">text</span>
+                        <button class="copy-btn" title="Copy code">Copy</button>
+                    </div>
+                    <pre><code>P1=(1,2), P2=(2,2), P3=(1,1), P4=(5,6), P5=(6,5)
+P6=(5,4), P7=(9,9), P8=(10,9), P9=(8,2), P10=(3,7)</code></pre>
+                </div>
+
+                <p>We want to select <code>N_out=3</code> points using FPS.</p>
+
+                <h3>Step-by-step Calculation</h3>
+                <ol class="tutorial-list">
+                    <li><strong>Start:</strong> Pick a random point, let's say <code>P1=(1,2)</code>. Sampled set
+                        <code>𝒫_s = {P1}</code>.
+                    </li>
+                    <li><strong>Step 2:</strong> Find the farthest point from P1. Distances:
+                        <ul>
+                            <li>P2: 1.0</li>
+                            <li>P3: 1.0</li>
+                            <li>P4: ≈5.0</li>
+                            <li>P5: ≈5.0</li>
+                            <li>P6: ≈4.12</li>
+                            <li>P7: ≈10.63</li>
+                            <li>P8: ≈11.40</li>
+                            <li>P9: ≈7.07</li>
+                            <li>P10: ≈5.39</li>
+                        </ul>
+                        The farthest point is <code>P8=(10,9)</code>. Sampled set <code>𝒫_s = {P1, P8}</code>.
+                    </li>
+                    <li><strong>Step 3:</strong> Pick the next point whose minimum distance to <code>{P1, P8}</code> is
+                        maximized:
+                        <ul>
+                            <li>P2: min(1.0, 8.94) = 1.0</li>
+                            <li>P3: min(1.0, 12.04) = 1.0</li>
+                            <li>P4: min(5.0, 5.0) = 5.0</li>
+                            <li>P5: min(5.0, 5.7) = 5.0</li>
+                            <li>P6: min(4.12, 6.4) = 4.12</li>
+                            <li>P7: min(10.63, 1.41) = 1.41</li>
+                            <li>P9: min(7.07, 7.21) = 7.07</li>
+                            <li>P10: min(5.39, 7.07) = 5.39</li>
+                        </ul>
+                        Maximum minimum distance is <code>7.07</code> for <code>P9=(8,2)</code>. So final sampled set is
+                        <code>𝒫_s = {P1, P8, P9}</code>.
+                    </li>
+                </ol>
+
+                <p>These three points are well spread and represent the point cloud efficiently.</p>
+            </section>
+
+            <!-- FPS Plot Image -->
+            <section class="tutorial-section">
+                <h2>Visualizing FPS Selection</h2>
+                <p>The plot below shows the 10 points in blue and the FPS-selected points (P1, P8, P9) highlighted in
+                    red.</p>
+
+                <div class="tutorial-image-template" data-src="../../assets/images/fps.png"
+                    data-caption="<strong>Figure 1:</strong> FPS-selected points in red highlight the farthest points chosen iteratively."
+                    data-size="large"></div>
+            </section>
+
+            <!-- Navigation (Auto-generated from blogData.js) -->
+            <div id="tutorial-navigation"></div>
+
+        </article>
+    </main>
+
+    <!-- Footer placeholder -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../../scripts/loadComponents.js"></script>
+    <script src="../../scripts/blogData.js"></script>
+    <script src="../../scripts/copyCode.js"></script>
+    <script src="../../scripts/tutorialNavigation.js"></script>
+    <script src="../../scripts/imageTemplate.js"></script>
+
+</body>
+
+</html>

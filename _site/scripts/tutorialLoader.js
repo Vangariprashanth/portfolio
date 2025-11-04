@@ -8,7 +8,7 @@
  * 3. Reference tutorial-base.html structure
  */
 
-(function() {
+(function () {
     'use strict';
 
     /**
@@ -76,10 +76,10 @@
     function loadFromContentSections() {
         // Find all content sections
         const contentSections = document.querySelectorAll('[data-tutorial-section]');
-        
+
         if (contentSections.length > 0) {
             const contentContainer = document.getElementById('tutorial-content');
-            
+
             if (contentContainer) {
                 contentSections.forEach(section => {
                     const cloned = section.cloneNode(true);
@@ -96,7 +96,7 @@
      */
     function buildSectionHTML(section) {
         let html = `<section class="tutorial-section">`;
-        
+
         if (section.title) {
             html += `<h2>${escapeHtml(section.title)}</h2>`;
         }
@@ -136,16 +136,16 @@
      */
     function formatInlineText(text) {
         if (typeof text !== 'string') return text;
-        
+
         // Bold: **text**
         text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-        
+
         // Inline code: `code`
         text = text.replace(/`(.+?)`/g, '<code>$1</code>');
-        
+
         // Links: [text](url)
         text = text.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
-        
+
         return text;
     }
 
@@ -155,7 +155,7 @@
     function buildCodeBlock(codeData) {
         const code = typeof codeData === 'string' ? codeData : codeData.code;
         const language = codeData.language || 'python';
-        
+
         return `
             <div class="code-block">
                 <div class="code-header">
@@ -174,7 +174,7 @@
         const src = typeof imageData === 'string' ? imageData : imageData.src;
         const caption = imageData.caption || '';
         const size = imageData.size || 'large';
-        
+
         return `
             <figure class="tutorial-image tutorial-image-${size}">
                 <img src="${src}" alt="${caption.replace(/<[^>]*>/g, '') || 'Tutorial diagram'}" class="shadow-only">
@@ -188,7 +188,7 @@
      */
     function buildList(items) {
         if (!Array.isArray(items)) return '';
-        
+
         return `
             <ul class="tutorial-list">
                 ${items.map(item => `<li>${formatInlineText(item)}</li>`).join('')}
