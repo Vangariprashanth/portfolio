@@ -69,9 +69,10 @@ const blogData = {
         },
         {
             id: 7,
-            title: "Quantization and Pruning",
+            title: "TinyML",
             description: "Coming Soon",
             links: [
+                { title: "Introduction", url: "tutorials/7-Tiny-ML/1-introduction.html" },
                 { title: "Coming Soon", url: "tutorials/coming-soon.html" }
             ]
         },
@@ -80,6 +81,7 @@ const blogData = {
             title: "Distributed Training",
             description: "Coming Soon",
             links: [
+                
                 { title: "Coming Soon", url: "tutorials/coming-soon.html" }
             ]
         }
