@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiny-ML - Introduction</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+</head>
+
+<body>
+
+    <!-- Header placeholder -->
+    <div id="header"></div>
+
+    <main class="tutorial-main">
+        <article class="tutorial-content">
+
+            <!-- Tutorial Header -->
+            <div class="tutorial-header">
+                <h1>Tiny ML - Introduction</h1>
+                <p class="tutorial-meta">
+                    <span class="meta-item">Published: November 2025</span>
+                    <span class="meta-item">Category: Tiny-ML</span>
+                </p>
+            </div>
+
+            <!-- Section 1: What is TinyML -->
+            <section class="tutorial-section">
+                <h2>1. What is TinyML?</h2>
+                <p>
+                    <strong>TinyML</strong> is a subset of Machine Learning that focuses on running ML models on
+                    <strong>resource-constrained devices</strong> such as microcontrollers, embedded boards, and
+                    smartphones.
+                    These devices often lack the computational and memory capabilities of traditional computers, yet
+                    they can still perform inference efficiently using optimized ML techniques.
+                </p>
+
+                <h3>What do we mean by "resources"?</h3>
+                <p>
+                    When we say "resource-constrained", we refer to the limited availability of:
+                </p>
+
+                <ul class="tutorial-list">
+                    <li><strong>Compute:</strong> The number and speed of processing units available. A microcontroller
+                        might have a single low-frequency CPU core, unlike a desktop computer or GPU cluster with
+                        multiple high-speed cores.</li>
+                    <li><strong>Memory (RAM):</strong> The working space available for models and intermediate
+                        computations. Microcontrollers often have only tens or hundreds of kilobytes of RAM.</li>
+                    <li><strong>Storage (Flash):</strong> Where models and code are stored. Embedded devices may only
+                        have a few megabytes of flash storage compared to gigabytes or terabytes on modern systems.</li>
+                </ul>
+
+                <h3>Big Computers vs. Embedded Systems</h3>
+                <p>
+                    In contrast, modern high-performance systems—such as GPUs and data center servers—have
+                    <strong>massive resources</strong>:
+                </p>
+
+                <ul class="tutorial-list">
+                    <li>Compute power measured in <strong>teraFLOPS</strong> (trillions of floating-point operations per second).</li>
+                    <li>Dozens of CPU/GPU cores and specialized accelerators for AI workloads.</li>
+                    <li>Gigabytes of RAM and high-speed VRAM (e.g., 16GB–80GB on modern GPUs).</li>
+                    <li>High-bandwidth storage systems (SSD/NVMe) capable of transferring data at several GB/s.</li>
+                </ul>
+
+                <p>
+                    TinyML exists to bring intelligence to the <strong>edge</strong>—where sensors and devices operate—
+                    without needing these massive compute systems.
+                </p>
+            </section>
+
+            <!-- Section 2: Why TinyML -->
+            <section class="tutorial-section">
+                <h2>2. Why use TinyML?</h2>
+                <p>
+                    Because embedded devices are limited in compute, memory, and energy, TinyML applies techniques that
+                    make models <strong>smaller, faster, and more efficient</strong>.
+                </p>
+
+                <ol class="tutorial-list">
+                    <li><strong>Reduced memory consumption:</strong> TinyML optimizations shrink model size, allowing it
+                        to fit within tight RAM or flash memory limits.</li>
+                    <li><strong>Lower inference time:</strong> Simpler numerical representations (e.g., int8 instead of
+                        float32) lead to faster computations.</li>
+                    <li><strong>Reduced energy usage:</strong> Less computation and simpler arithmetic mean lower power
+                        draw—critical for battery-powered IoT devices.</li>
+                </ol>
+            </section>
+
+            <!-- Section 3: How numbers are stored -->
+            <section class="tutorial-section">
+                <h2>3. How numbers are stored in computers</h2>
+                <p>
+                    To understand quantization and why TinyML matters, let’s briefly explore how computers represent
+                    numbers.
+                </p>
+
+                <h3>Integer Representation</h3>
+                <ul class="tutorial-list">
+                    <li>
+                        Computers use <strong>fixed numbers of bits</strong> to represent integers (e.g., 8-bit, 16-bit,
+                        32-bit).
+                    </li>
+                    <li>
+                        Most systems use <strong>two’s complement</strong> representation for signed integers. The first
+                        bit indicates the sign (0 for positive, 1 for negative), and the remaining bits store the
+                        magnitude.
+                    </li>
+                </ul>
+
+                <h3>Why Two’s Complement?</h3>
+                <p>
+                    Two’s complement is used because it simplifies arithmetic operations in hardware.
+                    Using it, the same circuitry can handle both addition and subtraction without needing special
+                    handling for negative numbers. It also ensures a unique representation for zero.
+                </p>
+
+                <h3>Floating Point Units (FPUs)</h3>
+                <p>
+                    Many CPUs and GPUs have dedicated <strong>Floating Point Units (FPUs)</strong> to perform
+                    floating-point arithmetic (operations involving real numbers like 3.14 or 0.001).
+                    However, some embedded systems lack FPUs entirely, meaning they must emulate floating-point
+                    operations in software—much slower and energy-costly.
+                    This is a major reason why <strong>quantization to integers</strong> is important for TinyML.
+                </p>
+
+                <h3>Quantization and De-quantization</h3>
+                <p>
+                    When quantization is applied, the model’s parameters (which are originally floating-point numbers)
+                    are converted into integers. During inference, computations are performed in integer form, and the
+                    results are <strong>de-quantized</strong> (converted back to floating-point) before being passed to
+                    the next layer.
+                </p>
+
+                <p>
+                    This process introduces some <strong>precision loss</strong> because integer arithmetic cannot
+                    capture all fractional values accurately, but the trade-off is improved speed and efficiency.
+                </p>
+            </section>
+
+            <!-- Section 4: Techniques -->
+            <section class="tutorial-section">
+                <h2>4. TinyML Techniques</h2>
+
+                <h3>1. Pruning</h3>
+                <ul class="tutorial-list">
+                    <li><strong>Synapse pruning:</strong> Removing unnecessary connections between neurons that contribute little to the final output.</li>
+                    <li><strong>Neuron pruning:</strong> Removing entire neurons or channels that have minimal impact on model accuracy.</li>
+                </ul>
+
+                <h3>2. Quantization</h3>
+                <p>
+                    Quantization reduces the number of bits used to represent each parameter. Instead of using 32-bit
+                    floating-point values, we might use 8-bit integers—drastically shrinking model size.
+                </p>
+
+                <p><strong>Note:</strong> Quantization does not mean rounding off or discarding values—it’s a
+                    systematic transformation with calibration to minimize precision loss.</p>
+
+                <h4>Types of Quantization</h4>
+                <ul class="tutorial-list">
+                    <li><strong>Asymmetric and Symmetric Quantization:</strong> In symmetric quantization, zero is centered within the range; in asymmetric, it’s offset to better fit non-centered data distributions.</li>
+                    <li><strong>Quantization Range:</strong> Defines how floating-point values map to integer intervals.</li>
+                    <li><strong>Quantization Granularity:</strong> Whether quantization is applied per-tensor, per-channel, or per-layer.</li>
+                    <li><strong>Post-Training Quantization (PTQ):</strong> Model is trained in float, then quantized afterward.</li>
+                    <li><strong>Quantization Aware Training (QAT):</strong> Model simulates quantization during training to adapt to reduced precision.</li>
+                </ul>
+
+                <div class="tutorial-image-template" data-src="../../assets/images/image-41.png"
+                    data-caption="<strong>Figure:</strong> Symmetric vs Asymmetric Quantization"
+                    data-size="large">
+                </div>
+
+                <h3>3. Knowledge Distillation</h3>
+                <p>
+                    A large, accurate model (teacher) transfers knowledge to a smaller model (student), helping the
+                    smaller model achieve high accuracy with fewer parameters and less computation.
+                </p>
+            </section>
+
+            <!-- Navigation (Auto-generated from blogData.js) -->
+            <div id="tutorial-navigation"></div>
+
+        </article>
+    </main>
+
+    <!-- Footer placeholder -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="../../scripts/loadComponents.js"></script>
+    <script src="../../scripts/blogData.js"></script>
+    <script src="../../scripts/copyCode.js"></script>
+    <script src="../../scripts/tutorialNavigation.js"></script>
+    <script src="../../scripts/imageTemplate.js"></script>
+
+</body>
+
+</html>
