@@ -37,7 +37,7 @@ const blogData = {
                 { title: "Deep Learning Fundamentals", url: "blogs/dl_fundamentals.md" },
                 { title: "1D Convolutional Neural Networks", url: "blogs/cnn_basics.md" },
                 { title: "2D Convolutional Neural Networks", url: "blogs/cnn_basics.md" },
-                { title: "Recurrent Neural Networks", url: "blogs/rnn_basics.md" }
+                { title: "Recurrent Neural Networks", url: "tutorials/3-neural-networks/1-rnn.html" }
             ]
         },
         {
