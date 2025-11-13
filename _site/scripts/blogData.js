@@ -37,7 +37,8 @@ const blogData = {
                 { title: "Deep Learning Fundamentals", url: "blogs/dl_fundamentals.md" },
                 { title: "1D Convolutional Neural Networks", url: "blogs/cnn_basics.md" },
                 { title: "2D Convolutional Neural Networks", url: "blogs/cnn_basics.md" },
-                { title: "Recurrent Neural Networks", url: "blogs/rnn_basics.md" }
+                { title: "Recurrent Neural Networks", url: "tutorials/3-neural-networks/1-rnn.html" },
+                { title: "Advance topics", url: "tutorials/3-neural-networks/2-advanced-topics.html" }
             ]
         },
         {
@@ -69,9 +70,10 @@ const blogData = {
         },
         {
             id: 7,
-            title: "Quantization and Pruning",
+            title: "TinyML",
             description: "Coming Soon",
             links: [
+                { title: "Introduction", url: "tutorials/7-Tiny-ML/1-introduction.html" },
                 { title: "Coming Soon", url: "tutorials/coming-soon.html" }
             ]
         },
@@ -80,6 +82,7 @@ const blogData = {
             title: "Distributed Training",
             description: "Coming Soon",
             links: [
+                
                 { title: "Coming Soon", url: "tutorials/coming-soon.html" }
             ]
         }

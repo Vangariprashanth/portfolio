@@ -775,8 +775,11 @@ main {
 
 /* Tutorial Page Styles */
 .tutorial-main {
-    max-width: 900px !important;
+    max-width: 1200px !important;
+    width: 100% !important;
     padding: 40px 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .tutorial-content {

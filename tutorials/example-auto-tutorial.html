@@ -56,6 +56,32 @@
     <!-- ============================================ -->
     <script>
         // EXAMPLE: Simple Python Tutorial
+        // 
+        // HOW TO ADD IMAGES:
+        // ===================
+        // For files in tutorials/ directory, use: "../assets/images/your-image.png"
+        // For files in tutorials/subfolder/, use: "../../assets/images/your-image.png"
+        //
+        // Single Image:
+        // {
+        //     title: "Section Title",
+        //     content: "Your text here",
+        //     image: {
+        //         src: "../assets/images/your-image.png",
+        //         caption: "<strong>Figure 1:</strong> Your caption with HTML support",
+        //         size: "large"  // Options: "small", "medium", "large"
+        //     }
+        // }
+        //
+        // Multiple Images:
+        // {
+        //     title: "Section Title",
+        //     image: [
+        //         { src: "../assets/images/image1.png", caption: "Caption 1", size: "medium" },
+        //         { src: "../assets/images/image2.png", caption: "Caption 2", size: "large" }
+        //     ]
+        // }
+        //
         var tutorialData = {
             title: "Getting Started with Python Lists",
             published: "November 2025",
@@ -116,6 +142,31 @@ last_item = fruits.pop()`,
                         "Lists are **mutable** - you can change them after creation",
                         "Lists can contain **duplicate** values",
                         "Lists support **slicing** with `list[start:end]` syntax"
+                    ]
+                },
+                {
+                    title: "Visual Example",
+                    content: "Here's a visual representation of how lists work in Python:",
+                    image: {
+                        src: "../assets/images/3d_pose_demo.png",
+                        caption: "<strong>Figure 1:</strong> Example diagram showing Python list structure and operations",
+                        size: "large"
+                    }
+                },
+                {
+                    title: "Multiple Images Example",
+                    content: "You can also add multiple images in a single section:",
+                    image: [
+                        {
+                            src: "../assets/images/fps.png",
+                            caption: "<strong>Figure 2:</strong> First image with medium size",
+                            size: "medium"
+                        },
+                        {
+                            src: "../assets/images/knn.png",
+                            caption: "<strong>Figure 3:</strong> Second image with large size",
+                            size: "large"
+                        }
                     ]
                 }
             ],
@@ -259,25 +310,28 @@ last_item = fruits.pop()`,
                     }
                 }
 
-                // Initialize image templates after content loads
-                setTimeout(() => {
-                    if (typeof initializeImageTemplates === 'function') {
-                        initializeImageTemplates();
-                    }
-                    // Initialize copy buttons for dynamically generated code blocks
-                    const copyBtns = document.querySelectorAll('.copy-btn');
-                    copyBtns.forEach(btn => {
-                        btn.addEventListener('click', function () {
-                            const codeBlock = this.closest('.code-block');
-                            const code = codeBlock.querySelector('code').textContent;
-                            navigator.clipboard.writeText(code).then(() => {
-                                const originalText = this.textContent;
-                                this.textContent = 'Copied!';
-                                setTimeout(() => this.textContent = originalText, 2000);
-                            }).catch(err => console.error('Failed to copy:', err));
+                // Initialize copy buttons for dynamically generated code blocks
+                // Use requestAnimationFrame to ensure DOM is ready
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        const copyBtns = document.querySelectorAll('.copy-btn');
+                        copyBtns.forEach(btn => {
+                            // Remove existing listeners to avoid duplicates
+                            const newBtn = btn.cloneNode(true);
+                            btn.parentNode.replaceChild(newBtn, btn);
+
+                            newBtn.addEventListener('click', function () {
+                                const codeBlock = this.closest('.code-block');
+                                const code = codeBlock.querySelector('code').textContent;
+                                navigator.clipboard.writeText(code).then(() => {
+                                    const originalText = this.textContent;
+                                    this.textContent = 'Copied!';
+                                    setTimeout(() => this.textContent = originalText, 2000);
+                                }).catch(err => console.error('Failed to copy:', err));
+                            });
                         });
-                    });
-                }, 100);
+                    }, 100);
+                });
             }
 
             function buildSection(section) {
@@ -311,19 +365,22 @@ last_item = fruits.pop()`,
                     });
                 }
 
-                // Images (using imageTemplate system)
+                // Images (render directly as HTML)
                 if (section.image) {
                     const images = Array.isArray(section.image) ? section.image : [section.image];
                     images.forEach(img => {
                         const src = typeof img === 'string' ? img : img.src;
+                        // Don't escape caption HTML - it should support HTML tags like <strong>
                         const caption = img.caption || '';
                         const size = img.size || 'large';
+                        const sizeClass = `tutorial-image-${size}`;
+                        const captionHTML = caption ? `<figcaption>${caption}</figcaption>` : '';
+                        // Render image directly as HTML instead of using template divs
                         html += `
-                            <div class="tutorial-image-template" 
-                                 data-src="${src}" 
-                                 data-caption="${escapeHtml(caption)}" 
-                                 data-size="${size}">
-                            </div>
+                            <figure class="tutorial-image ${sizeClass}">
+                                <img src="${escapeHtml(src)}" alt="${caption.replace(/<[^>]*>/g, '') || 'Tutorial diagram'}" style="object-fit: contain; aspect-ratio: auto; max-width: 100%;" class="shadow-only">
+                                ${captionHTML}
+                            </figure>
                         `;
                     });
                 }
