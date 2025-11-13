@@ -4,9 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiny-ML - Introduction</title>
+    <title>Tutorial - Prashanth Vangari</title>
     <script src="../../scripts/loadFavicon.js"></script>
     <link rel="stylesheet" href="../../styles/style.css">
+    <!-- Optional: Add MathJax for LaTeX rendering -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 
 <body>
@@ -16,208 +24,24 @@
 
     <main class="tutorial-main">
         <article class="tutorial-content">
-
-            <!-- Tutorial Header -->
+            <!-- Tutorial Header (Auto-generated) -->
             <div class="tutorial-header">
-                <h1>Tiny ML - Introduction</h1>
+                <h1 id="tutorial-title">Tutorial Title</h1>
                 <p class="tutorial-meta">
-                    <span class="meta-item">Published: November 2025</span>
-                    <span class="meta-item">Category: Tiny-ML</span>
+                    <span class="meta-item" id="tutorial-date">Published: <span></span></span>
+                    <span class="meta-item" id="tutorial-category">Category: <span></span></span>
+                    <span class="meta-item" id="tutorial-time" style="display: none;">Reading Time: <span></span></span>
                 </p>
             </div>
 
-            <!-- Section 1: What is TinyML -->
-            <section class="tutorial-section">
-                <h2>1. What is TinyML?</h2>
-                <p>
-                    <strong>TinyML</strong> is a subset of Machine Learning that focuses on running ML models on
-                    <strong>resource-constrained devices</strong> such as microcontrollers, embedded boards, and
-                    smartphones.
-                    These devices often lack the computational and memory capabilities of traditional computers, yet
-                    they can still perform inference efficiently using optimized ML techniques.
-                </p>
+            <!-- Content Container (Auto-generated) -->
+            <div id="tutorial-content"></div>
 
-                <h3>What do we mean by "resources"?</h3>
-                <p>
-                    When we say "resource-constrained", we refer to the limited availability of:
-                </p>
+            <!-- Code Files Section (Auto-generated if provided) -->
+            <div id="tutorial-code-files"></div>
 
-                <ul class="tutorial-list">
-                    <li><strong>Compute:</strong> The number and speed of processing units available. A microcontroller
-                        might have a single low-frequency CPU core, unlike a desktop computer or GPU cluster with
-                        multiple high-speed cores.</li>
-                    <li><strong>Memory (RAM):</strong> The working space available for models and intermediate
-                        computations. Microcontrollers often have only tens or hundreds of kilobytes of RAM.</li>
-                    <li><strong>Storage (Flash):</strong> Where models and code are stored. Embedded devices may only
-                        have a few megabytes of flash storage compared to gigabytes or terabytes on modern systems.</li>
-                </ul>
-
-                <h3>Big Computers vs. Embedded Systems</h3>
-                <p>
-                    In contrast, modern high-performance systems—such as GPUs and data center servers—have
-                    <strong>massive resources</strong>:
-                </p>
-
-                <ul class="tutorial-list">
-                    <li>Compute power measured in <strong>teraFLOPS</strong> (trillions of floating-point operations per second).</li>
-                    <li>Dozens of CPU/GPU cores and specialized accelerators for AI workloads.</li>
-                    <li>Gigabytes of RAM and high-speed VRAM (e.g., 16GB–80GB on modern GPUs).</li>
-                    <li>High-bandwidth storage systems (SSD/NVMe) capable of transferring data at several GB/s.</li>
-                </ul>
-
-                <p>
-                    TinyML exists to bring intelligence to the <strong>edge</strong>—where sensors and devices operate—
-                    without needing these massive compute systems.
-                </p>
-            </section>
-
-            <!-- Section 2: Why TinyML -->
-            <section class="tutorial-section">
-                <h2>2. Why use TinyML?</h2>
-                <p>
-                    Because embedded devices are limited in compute, memory, and energy, TinyML applies techniques that
-                    make models <strong>smaller, faster, and more efficient</strong>.
-                </p>
-
-                <ol class="tutorial-list">
-                    <li><strong>Reduced memory consumption:</strong> TinyML optimizations shrink model size, allowing it
-                        to fit within tight RAM or flash memory limits.</li>
-                    <li><strong>Lower inference time:</strong> Simpler numerical representations (e.g., int8 instead of
-                        float32) lead to faster computations.</li>
-                    <li><strong>Reduced energy usage:</strong> Less computation and simpler arithmetic mean lower power
-                        draw—critical for battery-powered IoT devices.</li>
-                </ol>
-            </section>
-
-            <!-- Section 3: How numbers are stored -->
-            <section class="tutorial-section">
-                <h2>3. How numbers are stored in computers</h2>
-                <p>
-                    To understand quantization and why TinyML matters, let’s briefly explore how computers represent
-                    numbers.
-                </p>
-
-                <h3>Integer Representation</h3>
-                <ul class="tutorial-list">
-                    <li>
-                        Computers use <strong>fixed numbers of bits</strong> to represent integers (e.g., 8-bit, 16-bit,
-                        32-bit).
-                    </li>
-                    <li>
-                        Most systems use <strong>two’s complement</strong> representation for signed integers. The first
-                        bit indicates the sign (0 for positive, 1 for negative), and the remaining bits store the
-                        magnitude.
-                    </li>
-                </ul>
-
-                <h3>Why Two’s Complement?</h3>
-                <p>
-                    Two’s complement is used because it simplifies arithmetic operations in hardware.
-                    Using it, the same circuitry can handle both addition and subtraction without needing special
-                    handling for negative numbers. It also ensures a unique representation for zero.
-                </p>
-
-                <h3>Floating Point Units (FPUs)</h3>
-                <p>
-                    Many CPUs and GPUs have dedicated <strong>Floating Point Units (FPUs)</strong> to perform
-                    floating-point arithmetic (operations involving real numbers like 3.14 or 0.001).
-                    However, some embedded systems lack FPUs entirely, meaning they must emulate floating-point
-                    operations in software—much slower and energy-costly.
-                    This is a major reason why <strong>quantization to integers</strong> is important for TinyML.
-                </p>
-
-                <h3>Quantization and De-quantization</h3>
-                <p>
-                    When quantization is applied, the model’s parameters (which are originally floating-point numbers)
-                    are converted into integers. During inference, computations are performed in integer form, and the
-                    results are <strong>de-quantized</strong> (converted back to floating-point) before being passed to
-                    the next layer.
-                </p>
-
-                <p>
-                    This process introduces some <strong>precision loss</strong> because integer arithmetic cannot
-                    capture all fractional values accurately, but the trade-off is improved speed and efficiency.
-                </p>
-            </section>
-
-            <!-- Section 4: Techniques -->
-            <section class="tutorial-section">
-                <h2>4. TinyML Techniques</h2>
-
-                <h3>1. Pruning</h3>
-                <ul class="tutorial-list">
-                    <li><strong>Synapse pruning:</strong> Removing unnecessary connections between neurons that contribute little to the final output.</li>
-                    <li><strong>Neuron pruning:</strong> Removing entire neurons or channels that have minimal impact on model accuracy.</li>
-                </ul>
-
-                <h3>2. Quantization</h3>
-                <p>
-                    Quantization reduces the number of bits used to represent each parameter. Instead of using 32-bit
-                    floating-point values, we might use 8-bit integers—drastically shrinking model size.
-                </p>
-
-                <p><strong>Note:</strong> Quantization does not mean rounding off or discarding values—it’s a
-                    systematic transformation with calibration to minimize precision loss.</p>
-
-                <h4>Types of Quantization</h4>
-                <ul class="tutorial-list">
-                    <li><strong>Asymmetric and Symmetric Quantization:</strong> In symmetric quantization, zero is centered within the range; in asymmetric, it’s offset to better fit non-centered data distributions.</li>
-                    <li><strong>Quantization Range:</strong> Defines how floating-point values map to integer intervals.</li>
-                    <li><strong>Quantization Granularity:</strong> Whether quantization is applied per-tensor, per-channel, or per-layer.</li>
-                    <li><strong>Post-Training Quantization (PTQ):</strong> Model is trained in float, then quantized afterward.</li>
-                    <li><strong>Quantization Aware Training (QAT):</strong> Model simulates quantization during training to adapt to reduced precision.</li>
-                </ul>
-
-                <div class="tutorial-image-template" data-src="../../assets/images/image-41.png"
-                    data-caption="<strong>Figure:</strong> Symmetric vs Asymmetric Quantization"
-                    data-size="large">
-                </div>
-
-                <h3>3. Knowledge Distillation</h3>
-                <p>
-                    A large, accurate model (teacher) transfers knowledge to a smaller model (student), helping the
-                    smaller model achieve high accuracy with fewer parameters and less computation.
-                </p>
-            </section>
-
-            <!-- Code Files Section -->
-            <section class="tutorial-section">
-                <h2>Complete Code Files</h2>
-                <p>You can find the complete code for this tutorial in the following locations:</p>
-
-                <div class="code-links">
-                    <a href="https://github.com/your-username/tutorial-repo/tree/main/tinyml-tutorial"
-                        class="code-link" target="_blank" rel="noopener noreferrer">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                            </path>
-                        </svg>
-                        <span>View on GitHub</span>
-                    </a>
-
-                    <a href="../../assets/tutorials/tinyml-tutorial.zip" class="code-link" download>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        <span>Download Code (ZIP)</span>
-                    </a>
-                </div>
-            </section>
-
-            <!-- Additional Resources -->
-            <section class="tutorial-section">
-                <h2>Additional Resources</h2>
-                <ul class="tutorial-list">
-                    <li><a href="https://www.tensorflow.org/lite" target="_blank">TensorFlow Lite - Mobile ML Framework</a></li>
-                    <li><a href="https://www.edge-impulse.com/" target="_blank">Edge Impulse - TinyML Development Platform</a></li>
-                    <li><a href="https://arxiv.org/abs/2006.04059" target="_blank">TinyML: Machine Learning with TensorFlow Lite on Arduino and Ultra-Low-Power Microcontrollers</a></li>
-                </ul>
-            </section>
+            <!-- Additional Resources Section (Auto-generated if provided) -->
+            <div id="tutorial-resources"></div>
 
             <!-- Navigation (Auto-generated from blogData.js) -->
             <div id="tutorial-navigation"></div>
@@ -234,6 +58,396 @@
     <script src="../../scripts/copyCode.js"></script>
     <script src="../../scripts/tutorialNavigation.js"></script>
     <script src="../../scripts/imageTemplate.js"></script>
+
+    <!-- ============================================ -->
+    <!-- YOUR TUTORIAL DATA - Just edit this object! -->
+    <!-- ============================================ -->
+    <script>
+        // EXAMPLE: Simple Python Tutorial
+        // 
+        // HOW TO ADD IMAGES:
+        // ===================
+        // For files in tutorials/ directory, use: "../assets/images/your-image.png"
+        // For files in tutorials/subfolder/, use: "../../assets/images/your-image.png"
+        //
+        // Single Image:
+        // {
+        //     title: "Section Title",
+        //     content: "Your text here",
+        //     image: {
+        //         src: "../assets/images/your-image.png",
+        //         caption: "<strong>Figure 1:</strong> Your caption with HTML support",
+        //         size: "large"  // Options: "small", "medium", "large"
+        //     }
+        // }
+        //
+        // Multiple Images:
+        // {
+        //     title: "Section Title",
+        //     image: [
+        //         { src: "../assets/images/image1.png", caption: "Caption 1", size: "medium" },
+        //         { src: "../assets/images/image2.png", caption: "Caption 2", size: "large" }
+        //     ]
+        // }
+        //
+        var tutorialData = {
+            title: "Quantization in Deep Learning",
+            published: "November 2025",
+            category: "Deep Learning",
+            readingTime: "5 min",
+
+            sections: [
+                {
+                    title: "Introduction",
+                    content: [
+                        "Neural networks are typically trained using 32-bit floating point numbers. This provides very high accuracy but it is computationally expensive.",
+                        "Quantization is the process of mapping these floating point numbers to integers. This reduces the precision of the model but it is computationally cheaper."
+                    ]
+                },
+                {
+                    title: "The Hands-On Math (The Affine Transform)",
+                    content: [
+                        "How do we actually convert a float to an int? We use an **Affine Quantization** scheme. It maps a real number range $[min, max]$ to an integer range $[0, 255]$ (for unsigned) or $[-128, 127]$ (for signed).",
+                        "The quantization formula is: $$Q(x) = \\text{clamp}(\\text{round}(\\frac{x}{S} + Z), q_{min}, q_{max})$$",
+                        "Where: <br> - $x$: Original Float32 value <br> - $S$ (Scale): A float factor determining quantization step size <br> - $Z$ (Zero Point): Integer that maps real value 0.0 to a quantized integer value. This ensures zero is exactly representable, crucial for CNN padding.",
+                        "To convert back (Dequantization): $$x \\approx S \\times (Q(x) - Z)$$"
+                    ]
+                },
+                {
+                    title: "Example Calculation",
+                    content: [
+                        "Imagine your model weights range from $-2.0$ to $6.0$. We want to map this to INT8 ($0$ to $255$).",
+                        "Calculate Scale ($S$): $$S = \\frac{max_{val} - min_{val}}{q_{max} - q_{min}} = \\frac{6.0 - (-2.0)}{255 - 0} = \\frac{8.0}{255} \\approx 0.0314$$",
+                        "Calculate Zero Point ($Z$): $$Z = \\text{round}(q_{min} - \\frac{min_{val}}{S}) = \\text{round}(0 - \\frac{-2.0}{0.0314}) = \\text{round}(63.69) = 64$$",
+                        "Quantize a value (e.g., $x = 0.5$): $$Q(0.5) = \\text{round}(\\frac{0.5}{0.0314} + 64) = \\text{round}(79.92) = 80$$",
+                        "So, the float $0.5$ is represented by the integer $80$."
+                    ]
+                },
+
+                {
+                    title: "Creating Lists",
+                    content: "You can create a list in several ways:",
+                    code: {
+                        code: `# Empty list
+my_list = []
+
+# List with items
+numbers = [1, 2, 3, 4, 5]
+fruits = ["apple", "banana", "orange"]
+
+# Mixed types
+mixed = [1, "hello", 3.14, True]`,
+                        language: "python"
+                    }
+                },
+                {
+                    title: "Common Operations",
+                    content: "Here are some common list operations:",
+                    code: [
+                        {
+                            code: `# Adding items
+fruits.append("grape")
+fruits.insert(0, "mango")`,
+                            language: "python"
+                        },
+                        {
+                            code: `# Removing items
+fruits.remove("banana")
+last_item = fruits.pop()`,
+                            language: "python"
+                        }
+                    ]
+                },
+                {
+                    title: "Key Features",
+                    list: [
+                        "Lists are **ordered** - items maintain their position",
+                        "Lists are **mutable** - you can change them after creation",
+                        "Lists can contain **duplicate** values",
+                        "Lists support **slicing** with `list[start:end]` syntax"
+                    ]
+                },
+                {
+                    title: "Visual Example",
+                    content: "Here's a visual representation of how lists work in Python:",
+                    image: {
+                        src: "../assets/images/3d_pose_demo.png",
+                        caption: "<strong>Figure 1:</strong> Example diagram showing Python list structure and operations",
+                        size: "large"
+                    }
+                },
+                {
+                    title: "Multiple Images Example",
+                    content: "You can also add multiple images in a single section:",
+                    image: [
+                        {
+                            src: "../assets/images/fps.png",
+                            caption: "<strong>Figure 2:</strong> First image with medium size",
+                            size: "medium"
+                        },
+                        {
+                            src: "../assets/images/knn.png",
+                            caption: "<strong>Figure 3:</strong> Second image with large size",
+                            size: "large"
+                        }
+                    ]
+                }
+            ],
+
+            conclusion: [
+                "Congratulations! You now understand the basics of Python lists.",
+                "Practice by creating your own lists and experimenting with different operations."
+            ],
+
+            codeFiles: {
+                githubUrl: "https://github.com/your-username/python-lists-tutorial",
+                downloadUrl: "../assets/tutorials/python-lists.zip"
+            },
+
+            resources: [
+                {
+                    text: "Python Official Documentation - Lists",
+                    url: "https://docs.python.org/3/tutorial/datastructures.html#more-on-lists"
+                },
+                {
+                    text: "Real Python - Lists Guide",
+                    url: "https://realpython.com/python-lists-tuples/"
+                }
+            ]
+        };
+
+        // ============================================
+        // AUTO-GENERATOR - Don't edit below this line
+        // ============================================
+        (function () {
+            'use strict';
+
+            function loadTutorial() {
+                if (!tutorialData) {
+                    console.error('tutorialData is not defined!');
+                    return;
+                }
+
+                const data = tutorialData;
+
+                // Set title and metadata
+                if (data.title) {
+                    document.title = data.title + ' - Prashanth Vangari';
+                    const titleEl = document.getElementById('tutorial-title');
+                    if (titleEl) titleEl.textContent = data.title;
+                }
+
+                const dateSpan = document.querySelector('#tutorial-date span');
+                const categorySpan = document.querySelector('#tutorial-category span');
+                const timeSpan = document.querySelector('#tutorial-time span');
+                const timeContainer = document.querySelector('#tutorial-time');
+
+                if (dateSpan && data.published) dateSpan.textContent = data.published;
+                if (categorySpan && data.category) categorySpan.textContent = data.category;
+                if (timeSpan && data.readingTime) {
+                    timeSpan.textContent = data.readingTime;
+                    if (timeContainer) timeContainer.style.display = 'inline';
+                }
+
+                // Build prerequisites
+                const contentContainer = document.getElementById('tutorial-content');
+                if (contentContainer) {
+                    let html = '';
+
+                    // Add prerequisites section if provided
+                    if (data.prerequisites && data.prerequisites.length > 0) {
+                        html += `
+                            <section class="tutorial-section">
+                                <h2>Prerequisites</h2>
+                                <ul class="tutorial-list">
+                                    ${data.prerequisites.map(item => `<li>${formatText(item)}</li>`).join('')}
+                                </ul>
+                            </section>
+                        `;
+                    }
+
+                    // Build main sections
+                    if (data.sections) {
+                        data.sections.forEach(section => {
+                            html += buildSection(section);
+                        });
+                    }
+
+                    // Add conclusion if provided
+                    if (data.conclusion) {
+                        const conclusionText = Array.isArray(data.conclusion) ? data.conclusion : [data.conclusion];
+                        html += `
+                            <section class="tutorial-section">
+                                <h2>Conclusion</h2>
+                                ${conclusionText.map(text => `<p>${formatText(text)}</p>`).join('')}
+                            </section>
+                        `;
+                    }
+
+                    contentContainer.innerHTML = html;
+                }
+
+                // Build Code Files section
+                if (data.codeFiles) {
+                    const codeFilesContainer = document.getElementById('tutorial-code-files');
+                    if (codeFilesContainer) {
+                        codeFilesContainer.innerHTML = `
+                            <section class="tutorial-section">
+                                <h2>Complete Code Files</h2>
+                                <p>You can find the complete code for this tutorial in the following locations:</p>
+                                <div class="code-links">
+                                    <a href="${data.codeFiles.githubUrl}" class="code-link" target="_blank" rel="noopener noreferrer">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                                        </svg>
+                                        <span>View on GitHub</span>
+                                    </a>
+                                    <a href="${data.codeFiles.downloadUrl}" class="code-link" download>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="7 10 12 15 17 10"></polyline>
+                                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                                        </svg>
+                                        <span>Download Code (ZIP)</span>
+                                    </a>
+                                </div>
+                            </section>
+                        `;
+                    }
+                }
+
+                // Build Additional Resources section
+                if (data.resources && data.resources.length > 0) {
+                    const resourcesContainer = document.getElementById('tutorial-resources');
+                    if (resourcesContainer) {
+                        resourcesContainer.innerHTML = `
+                            <section class="tutorial-section">
+                                <h2>Additional Resources</h2>
+                                <ul class="tutorial-list">
+                                    ${data.resources.map(resource =>
+                            `<li><a href="${resource.url}" target="_blank">${formatText(resource.text)}</a></li>`
+                        ).join('')}
+                                </ul>
+                            </section>
+                        `;
+                    }
+                }
+
+                // Initialize copy buttons for dynamically generated code blocks
+                // Use requestAnimationFrame to ensure DOM is ready
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        const copyBtns = document.querySelectorAll('.copy-btn');
+                        copyBtns.forEach(btn => {
+                            // Remove existing listeners to avoid duplicates
+                            const newBtn = btn.cloneNode(true);
+                            btn.parentNode.replaceChild(newBtn, btn);
+
+                            newBtn.addEventListener('click', function () {
+                                const codeBlock = this.closest('.code-block');
+                                const code = codeBlock.querySelector('code').textContent;
+                                navigator.clipboard.writeText(code).then(() => {
+                                    const originalText = this.textContent;
+                                    this.textContent = 'Copied!';
+                                    setTimeout(() => this.textContent = originalText, 2000);
+                                }).catch(err => console.error('Failed to copy:', err));
+                            });
+                        });
+                    }, 100);
+                });
+            }
+
+            function buildSection(section) {
+                if (!section.title) return '';
+
+                let html = `<section class="tutorial-section"><h2>${escapeHtml(section.title)}</h2>`;
+
+                // Content paragraphs
+                if (section.content) {
+                    const contents = Array.isArray(section.content) ? section.content : [section.content];
+                    contents.forEach(text => {
+                        html += `<p>${formatText(text)}</p>`;
+                    });
+                }
+
+                // Code blocks (single or multiple)
+                if (section.code) {
+                    const codes = Array.isArray(section.code) ? section.code : [section.code];
+                    codes.forEach(codeData => {
+                        const code = typeof codeData === 'string' ? codeData : codeData.code;
+                        const lang = codeData.language || 'python';
+                        html += `
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span class="code-language">${lang}</span>
+                                    <button class="copy-btn" title="Copy code">Copy</button>
+                                </div>
+                                <pre><code>${escapeHtml(code)}</code></pre>
+                            </div>
+                        `;
+                    });
+                }
+
+                // Images (render directly as HTML)
+                if (section.image) {
+                    const images = Array.isArray(section.image) ? section.image : [section.image];
+                    images.forEach(img => {
+                        const src = typeof img === 'string' ? img : img.src;
+                        // Don't escape caption HTML - it should support HTML tags like <strong>
+                        const caption = img.caption || '';
+                        const size = img.size || 'large';
+                        const sizeClass = `tutorial-image-${size}`;
+                        const captionHTML = caption ? `<figcaption>${caption}</figcaption>` : '';
+                        // Render image directly as HTML instead of using template divs
+                        html += `
+                            <figure class="tutorial-image ${sizeClass}">
+                                <img src="${escapeHtml(src)}" alt="${caption.replace(/<[^>]*>/g, '') || 'Tutorial diagram'}" style="object-fit: contain; aspect-ratio: auto; max-width: 100%;" class="shadow-only">
+                                ${captionHTML}
+                            </figure>
+                        `;
+                    });
+                }
+
+                // Lists
+                if (section.list) {
+                    html += `<ul class="tutorial-list">`;
+                    section.list.forEach(item => {
+                        html += `<li>${formatText(item)}</li>`;
+                    });
+                    html += `</ul>`;
+                }
+
+                html += `</section>`;
+                return html;
+            }
+
+            function formatText(text) {
+                if (typeof text !== 'string') return text;
+                // Bold: **text**
+                text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+                // Inline code: `code`
+                text = text.replace(/`(.+?)`/g, '<code>$1</code>');
+                // Links: [text](url)
+                text = text.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+                return text;
+            }
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function () {
+                    setTimeout(loadTutorial, 50);
+                });
+            } else {
+                setTimeout(loadTutorial, 50);
+            }
+        })();
+    </script>
 
 </body>
 
