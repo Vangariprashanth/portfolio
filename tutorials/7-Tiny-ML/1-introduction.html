@@ -100,8 +100,14 @@
                 {
                     title: "Introduction",
                     content: [
-                        "Neural networks are typically trained using 32-bit floating point numbers. This provides very high accuracy but it is computationally expensive.",
-                        "Quantization is the process of mapping these floating point numbers to integers. This reduces the precision of the model but it is computationally cheaper."
+                        "Neural networks are typically trained using 32-bit floating point numbers. This provides very high accuracy but it is computationally expensive. Quantization is the process of mapping these floating point numbers to integers. This reduces the precision of the model but it is computationally cheaper. There are two types of quantization: Symmetric and Asymmetric.",
+                        "There are two types of quantization: Symmetric and Asymmetric."
+                    ]
+                },
+                {
+                    title: "Symmetric and Asymmetric Quantization",
+                    content: [
+                        ""
                     ]
                 },
                 {
@@ -121,6 +127,22 @@
                         "Calculate Zero Point ($Z$): $$Z = \\text{round}(q_{min} - \\frac{min_{val}}{S}) = \\text{round}(0 - \\frac{-2.0}{0.0314}) = \\text{round}(63.69) = 64$$",
                         "Quantize a value (e.g., $x = 0.5$): $$Q(0.5) = \\text{round}(\\frac{0.5}{0.0314} + 64) = \\text{round}(79.92) = 80$$",
                         "So, the float $0.5$ is represented by the integer $80$."
+                    ]
+                },
+                {
+                    title: "Intuition behind the math",
+                    content: [
+                        "**What is S?** `S` is the size of one single step on the integer ruler you are creating during quantization.",
+                        "Consider a small example where the range is from -2.0 to 6.0 and we want to map this to INT8 (0 to 255).",
+                        "The value of one single step on the integer ruler is: $$S = \\frac{6.0 - (-2.0)}{255 - 0} = \\frac{8.0}{255} \\approx 0.0314$$",
+                        "This 0.0314 means that for every 1 unit change on the integer scale, there will be a 0.0314 unit change in the original float scale.",
+                        "**What is Z?** `Z` is the integer on the quantized ruler that represents the real float value 0.0.",
+                        "In this example, `Z` is 64. That means integer 64 corresponds exactly to float 0.0. Then 65 corresponds to 0.0314, 66 corresponds to 0.0628, and so on.",
+                        "Look at the quantization formula with this intuition: $$Q(x) = \\text{round}(\\frac{x}{S} + Z)$$",
+                        "This breaks down naturally into two steps:",
+                        "x / S: This asks, 'How many steps does the float value x represent?' For example, 0.5 / 0.0314 ≈ 15.92. That means the float 0.5 is about 15.92 steps away from real zero.",
+                        "... + Z: This adds the offset so you know where that value lands on the integer ruler. 15.92 + 64 ≈ 79.92. That means: start at Z (64, which represents float 0.0) and move forward 15.92 steps.",
+                        "This is the core idea: S controls the step size, Z anchors the float zero, and the formula simply counts steps and shifts them into the valid integer range."
                     ]
                 },
 
