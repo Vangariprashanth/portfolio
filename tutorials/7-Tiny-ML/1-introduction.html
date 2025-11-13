@@ -285,6 +285,19 @@ last_item = fruits.pop()`,
                     }
 
                     contentContainer.innerHTML = html;
+
+                    // Re-render MathJax after content is inserted
+                    // Use setTimeout to ensure DOM is ready
+                    setTimeout(() => {
+                        if (window.MathJax && window.MathJax.typesetPromise) {
+                            window.MathJax.typesetPromise([contentContainer]).catch(function (err) {
+                                console.error('MathJax rendering error:', err);
+                            });
+                        } else if (window.MathJax && window.MathJax.Hub) {
+                            // Fallback for older MathJax versions
+                            window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub, contentContainer]);
+                        }
+                    }, 100);
                 }
 
                 // Build Code Files section
@@ -423,13 +436,30 @@ last_item = fruits.pop()`,
 
             function formatText(text) {
                 if (typeof text !== 'string') return text;
-                // Bold: **text**
-                text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-                // Inline code: `code`
-                text = text.replace(/`(.+?)`/g, '<code>$1</code>');
-                // Links: [text](url)
-                text = text.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
-                return text;
+
+                // Split text by LaTeX block equations ($$...$$) to preserve them
+                const parts = text.split(/(\$\$[\s\S]*?\$\$)/);
+                let result = '';
+
+                for (let i = 0; i < parts.length; i++) {
+                    const part = parts[i];
+                    // If it's a LaTeX block (starts and ends with $$), leave it as-is
+                    if (part.startsWith('$$') && part.endsWith('$$')) {
+                        result += part;
+                    } else {
+                        // Process markdown in non-LaTeX parts
+                        let processed = part;
+                        // Bold: **text**
+                        processed = processed.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+                        // Inline code: `code` (but not if it contains $)
+                        processed = processed.replace(/`([^$`]+?)`/g, '<code>$1</code>');
+                        // Links: [text](url)
+                        processed = processed.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');
+                        result += processed;
+                    }
+                }
+
+                return result;
             }
 
             function escapeHtml(text) {

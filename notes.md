@@ -124,3 +124,58 @@ You’ll build three strong projects that map **exactly** to the job description
 | KV Cache      | HuggingFace Accelerate docs, [HuggingFace Transformers caching](https://huggingface.co/docs/transformers/perf_infer_gpu_one)       |
 | Serving       | TorchServe, FastAPI, BentoML                                                                                                       |
 | Vector Search | FAISS, Milvus, Pinecone, pgvector                                                                                                  |
+
+About the job
+Senior AI Engineer - Video Search (Applied Research & Product)
+
+Remote - United States
+
+About the Company
+
+We’re partnering with a U.S-based applied AI company building next-generation real-time video understanding systems deployed at scale across enterprise, government, and public environments. The platform combines cutting-edge multimodal AI, vector search, and high-performance inference pipelines to make visual data searchable, interpretable, and actionable in real time.
+
+This is a chance to join a well-funded, mission-driven organization with over tens of thousands of active camera streams and a rapidly growing R&D team pushing the boundaries of multimodal retrieval and AI systems design.
+
+The Role
+
+We’re looking for a Senior AI Engineer to lead the applied research and productionization of our video search and retrieval stack - connecting natural-language queries to high-dimensional video representations with real-time performance.
+
+You’ll work at the intersection of deep learning research, scalable systems, and GPU-optimized inference, owning models and pipelines end-to-end from training through deployment.
+
+What You’ll Do
+
+Design and build natural-language-to-video retrieval systems using state-of-the-art architectures (e.g., V-JEPA, CLIP, SigLIP, Video-LLMs, ViViT, TimeSformer).
+Develop temporal localization and video summarization capabilities with fine-grained moment-level embeddings.
+Stand up vector search infrastructure (FAISS, Milvus, pgvector, Pinecone) with optimized sharding, caching, and hybrid retrieval strategies.
+Optimize GPU inference and serving pipelines using ONNX Runtime, TensorRT, or ROCm for low-latency performance.
+Drive multi-GPU training and distributed serving (FSDP, ZeRO, DDP, NCCL/RCCL) with strong understanding of parallelization and quantization techniques.
+Collaborate with MLOps, backend, and product teams to deliver production-ready AI features at scale.
+Define and track key retrieval and relevance metrics (R@K, mAP, nDCG) and run live A/B evaluations.
+Mentor junior engineers, document design decisions, and drive innovation through rigorous experimentation.
+
+What We’re Looking For
+
+6-10+ years of experience in machine learning or applied AI, with 4+ years focused on video understanding, multimodal retrieval, or transformer-based models.
+Proficiency in PyTorch and deep learning frameworks; experience with video backbones, contrastive training, and representation learning.
+Strong understanding of vector databases, ANN search (HNSW, IVF), and embedding pipelines.
+Demonstrated ability to ship high-performance AI systems with GPU optimization, ONNX/TensorRT, or ROCm pipelines.
+Experience with distributed training, CI/CD for ML, and scalable data pipelines (MLflow, W&B, K8s, Docker).
+Excellent communication skills and a collaborative, low-ego approach to problem solving.
+
+Nice-to-Haves
+
+Experience with temporal detection, video tracking, or re-ID.
+Exposure to Video-RAG or structured retrieval (metadata + knowledge graph).
+Background in real-time or edge inference systems.
+Interest in privacy-preserving or regulated AI systems.
+
+Compensation & Logistics
+
+Compensation: Competitive base salary + bonus + equity
+Location: Fully remote (U.S. based)
+
+Why Join
+
+Build real-world AI that operates at scale and latency levels few companies ever reach.
+Collaborate with world-class engineers and researchers in a fast-paced, mission-oriented environment.
+Work on deep technical challenges - multimodal search, retrieval, inference optimization - with real-world outcomes.
